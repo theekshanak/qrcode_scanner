@@ -50,6 +50,10 @@ public class QrscanPlugin implements MethodCallHandler, PluginRegistry.ActivityR
                 this.result = result;
                 showBarcodeView();
                 break;
+            case "scanfromfrontcamera":
+                this.result = result;
+                showBarcodeViewFront();
+                break;    
             case "scan_photo":
                 this.result = result;
                 choosePhotos();
@@ -76,7 +80,14 @@ public class QrscanPlugin implements MethodCallHandler, PluginRegistry.ActivityR
         }
     }
 
-    private void showBarcodeView() {
+    private void showBarcodeViewFront() {
+        Intent intent = new Intent(activity, SecondActivity.class);
+        intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+        intent.putExtra("SCAN_CAMERA_ID", 1);
+        activity.startActivityForResult(intent, REQUEST_CODE);
+    }
+    
+     private void showBarcodeView() {
         Intent intent = new Intent(activity, SecondActivity.class);
         activity.startActivityForResult(intent, REQUEST_CODE);
     }
